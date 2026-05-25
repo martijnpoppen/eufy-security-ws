@@ -1,10 +1,10 @@
-FROM node:20-alpine3.18 AS build
+FROM node:24-alpine AS build
 WORKDIR /tmp
 COPY . .
 RUN npm ci --verbose --foreground-scripts
 RUN npm run build --verbose
 
-FROM node:20-alpine3.18 AS prod
+FROM node:24-alpine AS prod
 WORKDIR /tmp_prod
 COPY --from=build /tmp/dist ./dist
 COPY --from=build /tmp/docker/run.sh ./run.sh
@@ -12,7 +12,7 @@ COPY --from=build /tmp/package.json ./package.json
 COPY --from=build /tmp/package-lock.json ./package-lock.json
 RUN npm ci --only=production
 
-FROM node:20-alpine
+FROM node:24-alpine
 WORKDIR /usr/src/app
 COPY --from=prod /tmp_prod ./
 RUN apk add --no-cache jq
