@@ -48,6 +48,11 @@ After that, the client will be notified of each state change that happens inside
 
 In an attempt to keep compatibility between different server and client versions, we've introduced a (basic) API Schema Version.
 
+**Warning!**
+<br>
+The user session is maintained across API calls provided the websocket connection remains the same. When the connection is closed the schema information is lost.
+
+
 1. **client connects** --> server sends back version info including the schema versions it can handle:
 
    ```json
