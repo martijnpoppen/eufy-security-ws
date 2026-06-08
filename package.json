@@ -15,7 +15,6 @@
   "scripts": {
     "lint": "eslint --ext .ts .",
     "lint:fix": "eslint --fix --ext .ts . && prettier -w .",
-
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage",
     "test:watch": "NODE_OPTIONS='--experimental-vm-modules' jest --watch",
     "build": "tsc -p .",
@@ -53,7 +52,7 @@
   },
   "dependencies": {
     "ansi-colors": "^4.1.3",
-    "commander": "^14.0.0",
+    "commander": "^15.0.0",
     "date-and-time": "^4.5.0",
     "eufy-security-client": "3.8.0",
     "fs-extra": "^11.3.5",
