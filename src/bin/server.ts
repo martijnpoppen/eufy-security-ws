@@ -65,6 +65,13 @@ const args = program.opts();
     return;
   }
 
+  // Use eufy-security-client's embedded (pure-JS) PKCS#1 v1.5 implementation so the
+  // P2P RSA handshake works without the Node `--security-revert=CVE-2023-46809` flag,
+  // which is no longer recognized on Node 24+ and aborts the process on startup.
+  if (config.enableEmbeddedPKCS1Support === undefined) {
+    config.enableEmbeddedPKCS1Support = true;
+  }
+
   if (args.verbose) {
     config.logging = {
       level: LogLevel.Debug,

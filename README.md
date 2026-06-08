@@ -38,13 +38,16 @@ To try it out or for more information, such as API documentation, Docker image, 
 
 Instructions aimed at maintainers for deploying a new version: [Deployment](docs/deployment.md)
 
-### Security warning `CVE-2023-46809`
+### `RSA_PKCS1_PADDING` / CVE-2023-46809
 
-When starting the Docker container, you may see a log line:
+The Eufy cloud handshake requires `RSA_PKCS1_PADDING`, which Node.js restricted as part of the
+Marvin attack fix (CVE-2023-46809). Earlier versions worked around this by launching Node with
+`--security-revert=CVE-2023-46809`, but that flag is no longer recognized on Node 24+ and causes
+Node to abort on startup (`Error: Attempt to revert an unknown CVE`).
 
-    SECURITY WARNING: Reverting CVE-2023-46809: Marvin attack on PKCS#1 padding
-
-This is expected and can be safely ignored, as the Eufy client still requires `RSA_PKCS1_PADDING` for cloud decryption. No code or runtime behavior is changed.
+This is now handled by `eufy-security-client`'s embedded (pure-JS) PKCS#1 implementation, which is
+enabled by default (`enableEmbeddedPKCS1Support: true`). No Node flag is required and you no longer
+need to set anything. To opt out, set `"enableEmbeddedPKCS1Support": false` in your config file.
 
 
 ## Changelog

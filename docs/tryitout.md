@@ -17,7 +17,7 @@ Options:
 ```
 
 ```shell
-node --security-revert=CVE-2023-46809 dist/bin/server.js -v -H 0.0.0.0
+node dist/bin/server.js -v -H 0.0.0.0
 ```
 
 Opens server on `ws://localhost:3000`.
